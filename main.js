@@ -16,6 +16,29 @@ class Calculator {
         this.clear();
     }
 
+    formatDisplayNumber(number) { // format numbers with dot and comma
+        const stringNumber  = number.toString();
+
+        const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        const decimalDigts  = stringNumber.split('.')[1];
+
+        let integerDisplay;
+
+        if(isNaN(integerDigits)) {
+            integerDisplay = '';
+        } else {
+            integerDisplay = integerDigits.toLocaleString('en', {
+                maximumFractionDigits: 0
+            })
+        }
+
+        if(decimalDigts != null) {
+            return `${integerDisplay}.${decimalDigts}`;
+        } else {
+            return integerDisplay;
+        }
+    }
+
     clear() { // clear the value of the elements
         this.previousOperand = '';
         this.currentOperand  = '';
@@ -27,8 +50,8 @@ class Calculator {
     }
 
     updateDisplay() { // clear the elements in the screen
-        this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation || ''}`;
-        this.currentOperandTextElement.innerText  = this.currentOperand;
+        this.previousOperandTextElement.innerText = `${this.formatDisplayNumber(this.previousOperand)} ${this.operation || ''}`;
+        this.currentOperandTextElement.innerText  = this.formatDisplayNumber(this.currentOperand);
     }
 
     appendNumber(number) { // add a new number at the output
@@ -69,9 +92,12 @@ class Calculator {
     }
 
     chooseOperation(operation) { // method to add a operation
+        if(this.currentOperand === '') return;
+
         if(this.previousOperand !== '') {
             this.calculate();
         }
+
         this.operation       = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand  = '';

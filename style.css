@@ -40,11 +40,23 @@ body {
 
   cursor: pointer;
   outline: none;
+
+    transition: 0.15s;
+}
+
+.grid-container > button:hover {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
 }
 
 .grid-container > .operator {
   background-color: #a334d6;
   border-color: #a334d6;
+}
+
+.grid-container > .operator:hover {
+    background-color: #af41e2;
+    border-color: #af41e2;
 }
 
 .span-two {
