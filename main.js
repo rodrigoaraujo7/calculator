@@ -23,13 +23,52 @@ class Calculator {
     }
 
     updateDisplay() { // clear the elements in the screen
-        this.previousOperandTextElement.innerText = this.previousOperand;
+        this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation || ''}`;
         this.currentOperandTextElement.innerText  = this.currentOperand;
     }
 
     appendNumber(number) { // add a new number at the output
         if(this.currentOperand.includes('.') && number === '.') return;
         this.currentOperand = `${this.currentOperand}${number.toString()}`
+    }
+
+    calculate() {
+        let result;
+
+        const _previousOperand = parseFloat(this.previousOperand)
+        const _currentOperand  = parseFloat(this.currentOperand)
+
+        if(isNaN(_previousOperand) || isNaN(_currentOperand)) return;
+
+        switch(this.operation) {
+            case '+':
+                result = _previousOperand + _currentOperand;
+                break;
+            case '-':
+                result = _previousOperand - _currentOperand;
+                break;
+            case '*':
+                result = _previousOperand * _currentOperand;
+                break;
+            case '÷':
+                result = _previousOperand / _currentOperand;
+                break;
+            default:
+                return;
+        }
+
+        this.currentOperand  = result;
+        this.previousOperand = '';
+        this.operation       = undefined;
+    }
+
+    chooseOperation(operation) { // method to add a operation
+        if(this.previousOperand !== '') {
+            this.calculate();
+        }
+        this.operation       = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand  = '';
     }
 }
 
@@ -51,4 +90,12 @@ for(const numberButton of numberButtons) {
         calculator.appendNumber(numberButton.innerText);
         calculator.updateDisplay();
     })
+}
+
+// (* Operator Button event *)
+for(const operatorButton of operationButtons) {
+    operatorButton.addEventListener('click', () => {
+        calculator.chooseOperation(operatorButton.innerText);
+        calculator.updateDisplay();
+    }) 
 }
