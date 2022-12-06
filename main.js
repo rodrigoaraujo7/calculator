@@ -13,6 +13,7 @@ class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement;
         this.currentOperandTextElement  = currentOperandTextElement;
+        this.clear();
     }
 
     clear() { // clear de value of the elements
@@ -24,6 +25,11 @@ class Calculator {
     updateDisplay() { // clear the elements in the screen
         this.previousOperandTextElement.innerText = this.previousOperand;
         this.currentOperandTextElement.innerText  = this.currentOperand;
+    }
+
+    appendNumber(number) { // add a new number at the output
+        if(this.currentOperand.includes('.') && number === '.') return;
+        this.currentOperand = `${this.currentOperand}${number.toString()}`
     }
 }
 
@@ -38,3 +44,11 @@ allClearButtons.addEventListener('click', () => {
     calculator.clear();
     calculator.updateDisplay();
 })
+
+// (* Number Button event *)
+for(const numberButton of numberButtons) {
+    numberButton.addEventListener('click', () => {
+        calculator.appendNumber(numberButton.innerText);
+        calculator.updateDisplay();
+    })
+}
