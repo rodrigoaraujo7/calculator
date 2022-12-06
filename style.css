@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(to right, #3700b3, #6200ee);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+.grid-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  grid-template-columns: repeat(4, 6.25rem);
+  grid-template-rows: minmax(7.5rem, auto) repeat(4, 6.25rem);
+}
+
+button {
+  height: 100%;
+  width: 100%;
+}
