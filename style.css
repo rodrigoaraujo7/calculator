@@ -28,7 +28,21 @@ body {
   grid-template-rows: minmax(7.5rem, auto) repeat(4, 6.25rem);
 }
 
-button {
+.grid-container > button {
+  border: 1px solid #111;
+  background-color: #111;
+
+  color: #eee;
+  font-size: 1.5rem;
+
   height: 100%;
   width: 100%;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.grid-container > .operator {
+  background-color: #a334d6;
+  border-color: #a334d6;
 }
