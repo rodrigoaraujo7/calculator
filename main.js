@@ -16,10 +16,14 @@ class Calculator {
         this.clear();
     }
 
-    clear() { // clear de value of the elements
+    clear() { // clear the value of the elements
         this.previousOperand = '';
         this.currentOperand  = '';
         this.operation       = undefined;
+    }
+
+    delete() { // delete the last value
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
     }
 
     updateDisplay() { // clear the elements in the screen
@@ -32,12 +36,14 @@ class Calculator {
         this.currentOperand = `${this.currentOperand}${number.toString()}`
     }
 
-    calculate() {
+    calculate() { // literally calculate
         let result;
 
+        // string to decimal/float
         const _previousOperand = parseFloat(this.previousOperand)
         const _currentOperand  = parseFloat(this.currentOperand)
 
+        // if ins't converted to decimal/float -> break
         if(isNaN(_previousOperand) || isNaN(_currentOperand)) return;
 
         switch(this.operation) {
@@ -84,6 +90,11 @@ allClearButtons.addEventListener('click', () => {
     calculator.updateDisplay();
 })
 
+deleteButtons.addEventListener('click', () => {
+    calculator.delete();
+    calculator.updateDisplay();
+})
+
 // (* Number Button event *)
 for(const numberButton of numberButtons) {
     numberButton.addEventListener('click', () => {
@@ -99,3 +110,8 @@ for(const operatorButton of operationButtons) {
         calculator.updateDisplay();
     }) 
 }
+
+equalsButtons.addEventListener('click', () => {
+    calculator.calculate();
+    calculator.updateDisplay();
+})
